@@ -1,0 +1,10 @@
+.text{
+    font-family: 'Open Sans', sans-serif;
+    color: #5C2610;
+    font-size: 3em;
+    font-weight: normal;
+    line-height: 1;
+}
+.text span {
+    font-style: italic;
+}
