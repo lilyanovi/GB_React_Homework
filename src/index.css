@@ -5,9 +5,7 @@ body {
   padding-left: calc(50% - 570px);
   padding-right: calc(50% - 570px);  margin: 0;
 }
-.App-header {
-  
-}
+
 .App-header {
   background: #E4E5D2;
   padding: 50px 20px;
