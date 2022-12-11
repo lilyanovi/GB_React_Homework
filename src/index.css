@@ -35,3 +35,7 @@ body {
   border-left-color: transparent;
   border-right-color: transparent;
 }
+.wrp {
+  display: flex;
+  gap: 20px; 
+}
