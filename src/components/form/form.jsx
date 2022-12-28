@@ -4,13 +4,8 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import style from'./form.module.css'
 
-export function Form ({ addMessage }){
-    const [text, setText] = useState('')
-    const [chatsList, setChatsList] = useState([
-        { id: 1, name: "One chat" },
-        { id: 2, name: "Another chat" },
-        { id: 3, name: "Three chat" },
-      ]);
+export function Form ({ addMessage}){
+    const [text, setText] = useState([])
 
     const handleSubmit = (event) => {
         event.preventDefault()
