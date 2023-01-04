@@ -2,7 +2,7 @@ import * as types from './types'
 
 const initialState = {
     name: 'Giga',
-    showVisible: false,
+    visible: false,
     
 }
 
@@ -18,7 +18,7 @@ export const profileReducer = (state = initialState, action) => {
         case types.CHANGE_VISIBLE:
             return {
                 ...state,
-                showVisible: !state.showVisible,
+                visible: !state.visible,
             }
         default:
             return state

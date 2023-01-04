@@ -1,18 +1,22 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { AUTHOR } from '../../constants'
+import { addMessage } from '../../store/messages/actions'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import style from'./form.module.css'
 
-export function Form ({ addMessage}){
-    const [text, setText] = useState([])
+export function Form (){
+    const [text, setText] = useState('')
+    const dispatch = useDispatch()
+    const chatId = useParams()
+   
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        addMessage({
-            author: AUTHOR.user,
-            text
-        })
+       
+        dispatch(addMessage(chatId, text))
         setText('')
     }
 

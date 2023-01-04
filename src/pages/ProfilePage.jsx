@@ -3,17 +3,15 @@ import { ThemeContext } from '../utils/ThemeContext'
 import { useSelector, useDispatch } from 'react-redux'
 import * as types from '../store/profile/types'
 import { changeName, changeVisible } from '../store/profile/actions'
+import { selectName, selectVisible } from '../store/profile/selectors'
 
 export function ProfilePage () {
     const { theme, toggleTheme } = useContext(ThemeContext)
-    const name = useSelector((store) => store.name)
+    const name = useSelector(selectName)
+    const visible = useSelector(selectVisible)
     const [ value, setValue ] = useState('')
 
-    const  visible= useSelector((store) => store.showVisible)
- 
-
     const dispatch = useDispatch()
-
    
     const handleChange = () => {
         dispatch(changeName(value))
@@ -21,7 +19,7 @@ export function ProfilePage () {
     }
 
     const handleChangeVisible = () => {
-        dispatch(changeVisible(value))
+        dispatch(changeVisible())
        
     }
 
@@ -44,8 +42,8 @@ export function ProfilePage () {
                 <input 
                     type="checkbox" 
                     id="visible" 
-                    checked={changeVisible}  
-                    value={changeVisible} 
+                    checked={visible}  
+                    value={visible} 
                     onChange={handleChangeVisible}
                 />
                 <label for="visible">Visible</label>

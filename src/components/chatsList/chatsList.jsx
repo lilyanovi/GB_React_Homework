@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { nanoid } from 'nanoid'
+import { addChat, delChat } from "../../store/messages/actions";
+import { selectChat } from "../../store/messages/selectors";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -11,17 +13,17 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import style from'./chatList.module.css'
 
-export function ChatsList ({ onAddChat, chats }) {
+export function ChatsList () {
   const [value, setChatsList] = useState('')
+  const dispatch = useDispatch()
+  const chats = useSelector(selectChat)
+
   const handleChange = (e) => {
     setChatsList(e.target.value)
   }
   const handleSubmit = (e) => {
-    e.preventDefault()
-    onAddChat({
-      id: nanoid(),
-      name: value
-    })
+    e.preventDefault()  
+    dispatch(addChat(value))
   }
   
   return (
@@ -41,6 +43,12 @@ export function ChatsList ({ onAddChat, chats }) {
                 key={chat.id}
               />
             </Link>
+            <Button className={style.btn}
+                    onClick={() => dispatch(delChat(chat.name))}
+                    variant="outlined" 
+                    color="success"
+                >x
+                </Button>
              
           </ListItem>
           <Divider variant="inset" component="li" />

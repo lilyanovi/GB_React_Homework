@@ -1,21 +1,26 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useParams, Navigate } from "react-router-dom"
-import { AUTHOR } from "../constants.js";
 import { Form } from "../components/form/form.jsx";
 import { MessageList } from "../components/messageList/messageList";
 import { ChatsList } from "../components/chatsList/chatsList.jsx";
+import { selectMessage } from "../store/messages/selectors.js";
+import { AUTHOR } from "../constants.js";
+import { useDispatch } from "react-redux"; 
+import { messagesReducer } from "../store/messages/reducer.js";
+import { addMessageBot } from "../store/messages/actions.js"; 
 
-export function ChatPage({ onAddChat, onAddMessage, messages, chats }) {
+export function ChatPage() {
     
-    const {chatId} = useParams()
+  const {chatId} = useParams()
+  const messages = useSelector(selectMessage)
+  const dispatch = useDispatch()
+  
 
-  useEffect(() => {
+ useEffect(() => {
     if (chatId && messages[chatId].length > 0 && messages[chatId][messages[chatId].length - 1].author === AUTHOR.user) {
       const timeout = setTimeout(() => {
-        onAddMessage(chatId, {
-          author: AUTHOR.bot,
-          text: 'Thanks for the feedback'
-        })
+    dispatch(addMessageBot(chatId))    
       }, 1500)
 
       return () => {
@@ -24,9 +29,7 @@ export function ChatPage({ onAddChat, onAddMessage, messages, chats }) {
     }
   }, [chatId, messages])
 
-  const handleAddMessage = (message) => {
-    if (chatId) {onAddMessage(chatId, message)}
-  }
+  
 
   if(chatId && !messages[chatId]){
     {
@@ -39,9 +42,9 @@ export function ChatPage({ onAddChat, onAddMessage, messages, chats }) {
       
       <main className="wrp">
         <div className="chatlist_form">
-            <ChatsList chats={chats} onAddChat={onAddChat}/>
+            <ChatsList />
         </div>
-        <Form addMessage={handleAddMessage}/>
+        <Form />
         <MessageList messages={chatId ? messages[chatId] : []}/>
       </main>
     </div>

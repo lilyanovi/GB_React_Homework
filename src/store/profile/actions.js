@@ -10,6 +10,6 @@ export const changeName = (data) => {
 export const changeVisible = (data) => {
     return {
         type: types.CHANGE_VISIBLE, 
-        payload: data
+    
     }
 }
