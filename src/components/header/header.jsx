@@ -16,6 +16,11 @@ const navigate = [
         id: 3,
         name: 'Chat',
         to: '/chat'
+    },
+    {
+        id: 4,
+        name: 'About',
+        to: '/about'
     }
 ]
 
