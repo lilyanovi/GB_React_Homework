@@ -21,6 +21,11 @@ const navigate = [
         id: 4,
         name: 'About',
         to: '/about'
+    },
+    {
+        id: 4,
+        name: 'Articles',
+        to: '/articles'
     }
 ]
 

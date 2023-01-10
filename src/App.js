@@ -7,6 +7,7 @@ import { MainPage } from './pages/MainPage';
 import { ChatPage } from './pages/ChatPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AboutWithConnect } from './pages/AboutPage'
+import { Articles } from './pages/Articles';
 import { Error404 } from './pages/Error404';
 
 import { Header } from './components/header/header'
@@ -14,6 +15,7 @@ import { ChatsList } from './components/chatsList/chatsList';
 
 import { defaultContext, ThemeContext } from './utils/ThemeContext'
 import { store, persistor } from './store'
+
 
 
 
@@ -47,6 +49,7 @@ export function App () {
                     element={<ChatPage />}
                   />
                 </Route>
+                <Route path='articles' element={< Articles />}></Route>
                 <Route path='*' element={<Error404 />}></Route>
               </Route>
           
