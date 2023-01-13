@@ -3,7 +3,7 @@ import * as types from './types'
 const initialState = {
     name: 'Giga',
     visible: false,
-    
+    isAuth: false
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -19,6 +19,11 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 visible: !state.visible,
+            }
+        case types.IS_AUTH:
+            return {
+                ...state,
+                isAuth: payload,
             }
         default:
             return state

@@ -8,6 +8,9 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import style from'./form.module.css'
 
+import { push } from "firebase/database";
+import { getMessageListById } from '../../services/firebase'
+
 export function Form (){
     const [text, setText] = useState('')
     const dispatch = useDispatch()
@@ -16,11 +19,14 @@ export function Form (){
 
     const handleSubmit = (event) => {
         event.preventDefault()
-       console.log('handleSubmit')
         dispatch(addMessageWithReply(chatId, {
             author: AUTHOR.user,
             text
         }))
+        push(getMessageListById(chatId), {
+            author: AUTHOR.user,
+            text
+          })
         setText('')
     }
 

@@ -1,7 +1,13 @@
-import style from './header.module.css'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, NavLink } from 'react-router-dom'
 
-const navigate = [
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { logOut } from '../../services/firebase'
+
+import style from './header.module.css'
+
+const navigates = [
     {
         id: 1,
         name: 'Main',
@@ -23,24 +29,53 @@ const navigate = [
         to: '/about'
     },
     {
-        id: 4,
+        id: 5,
         name: 'Articles',
         to: '/articles'
     }
 ]
 
 export function Header () {
+    
+    const navigate = useNavigate()
+
+    const name = useSelector((store) => store.profile.name)
+    const isAuth = useSelector((store) => store.profile.isAuth)
+  
+    const handleLogin = () => {
+      navigate('/signin')
+    }
+    const handleSignUp = () => {
+      navigate('/signup')
+    }
+    const handleLogout = async () => {
+      await logOut()
+    }
+  
+    
+    
     return (
     <>
         <header>
             <nav className={style.header}>
             <ul>
-                {navigate.map((link)=>(
+                {navigates.map((link)=>(
                     <li key={link.id}>
                         <Link to={link.to}>{link.name}</Link>
                     </li>
                 ))}
             </ul>
+            {!isAuth && (
+              <>
+                <button onClick={handleLogin}>login</button>
+                <button onClick={handleSignUp}>sing up</button>
+              </>
+            )}
+            {isAuth && (
+              <>
+                <button onClick={handleLogout}>logout</button>
+              </>
+            )}
         </nav>
         </header>
         <main>

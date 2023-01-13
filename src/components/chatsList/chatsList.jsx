@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addChat, delChat } from "../../store/messages/actions";
 import { selectChat } from "../../store/messages/selectors";
+
+import { push, set, remove } from "firebase/database";
+import { messagesRef } from '../../services/firebase'
+
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -13,10 +17,10 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import style from'./chatList.module.css'
 
-export function ChatsList () {
+export function ChatsList ({messageDB, chats}) {
   const [value, setChatsList] = useState('')
   const dispatch = useDispatch()
-  const chats = useSelector(selectChat)
+//  const chats = useSelector(selectChat), (prev, next) => prev.length === next.length)
 
   const handleChange = (e) => {
     setChatsList(e.target.value)
@@ -24,6 +28,12 @@ export function ChatsList () {
   const handleSubmit = (e) => {
     e.preventDefault()  
     dispatch(addChat(value))
+    set(messagesRef, {
+      ...messageDB,
+      [value]: {
+        name: value
+      }
+    })
   }
   
   return (

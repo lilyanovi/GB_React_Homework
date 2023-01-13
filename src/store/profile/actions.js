@@ -7,9 +7,15 @@ export const changeName = (data) => {
     }
 }
 
-export const changeVisible = (data) => {
+export const changeVisible = () => {
     return {
-        type: types.CHANGE_VISIBLE, 
-    
+        type: types.CHANGE_VISIBLE  
+    }
+}
+
+export const auth = (auth) => {
+    return {
+        type: types.IS_AUTH,
+        payload: auth   
     }
 }

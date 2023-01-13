@@ -5,7 +5,7 @@ import { MessageList } from "../components/messageList/messageList";
 import { ChatsList } from "../components/chatsList/chatsList.jsx";
 import { selectMessage } from "../store/messages/selectors.js";
 
-export function ChatPage() {
+export function ChatPage({ messageDB, chats }) {
     
   const {chatId} = useParams()
   const messages = useSelector(selectMessage)
