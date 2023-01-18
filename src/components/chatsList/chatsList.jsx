@@ -5,7 +5,7 @@ import { addChat, delChat } from "../../store/messages/actions";
 import { selectChat } from "../../store/messages/selectors";
 
 import { push, set, remove } from "firebase/database";
-import { messagesRef } from '../../services/firebase'
+import { messagesRef, getChatById, getMessageListById } from '../../services/firebase'
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -28,14 +28,27 @@ export function ChatsList ({messageDB, chats}) {
   const handleSubmit = (e) => {
     e.preventDefault()  
     dispatch(addChat(value))
+
     set(messagesRef, {
       ...messageDB,
       [value]: {
         name: value
       }
     })
+
+    push(getMessageListById(value), {
+      text: 'Chat has been created',
+      author: 'Admin',
+    });
+
+    setChatsList('');
   }
   
+  const handleDeleteChat = (chatId) => {
+    remove(getChatById(chatId));
+  };
+
+
   return (
     <>
       <h1>ChatsList</h1>
@@ -54,7 +67,7 @@ export function ChatsList ({messageDB, chats}) {
               />
             </Link>
             <Button className={style.btn}
-                    onClick={() => dispatch(delChat(chat.name))}
+                    onClick={() => dispatch(handleDeleteChat(chat.name))}
                     variant="outlined" 
                     color="success"
                 >x

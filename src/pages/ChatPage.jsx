@@ -8,7 +8,14 @@ import { selectMessage } from "../store/messages/selectors.js";
 export function ChatPage({ messageDB, chats }) {
     
   const {chatId} = useParams()
-  const messages = useSelector(selectMessage)
+  console.log('messagesDB', messageDB)
+  const messagesChat = chats.find((chat) => chat?.name === chatId)
+  const messages = Object.entries(messagesChat.messages).map((mes) => ({
+    id: mes[0],
+    text: mes[1].text,
+    author: mes[1].author,
+  }))
+  console.log('messages', messagesChat)
   
   if(chatId && !messages[chatId]){
     {
@@ -21,10 +28,10 @@ export function ChatPage({ messageDB, chats }) {
       
       <main className="wrp">
         <div className="chatlist_form">
-            <ChatsList />
+            <ChatsList chats={chats} />
         </div>
         <Form />
-        <MessageList messages={chatId ? messages[chatId] : []}/>
+        <MessageList messages={chatId ? messages : []}/>
       </main>
     </div>
   );
